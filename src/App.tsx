@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import "./app.scss";
 
-export const App = () => {
-  const [number, setNumber] = useState(5);
+interface IState {
+  people: {
+    name: string;
+    age: number;
+    url: string;
+    note?: string;
+  }[];
+}
 
-  const changeNumber = () => setNumber(10);
+export const App = () => {
+  const [people, setPeople] = useState<IState["people"]>([]);
+
   return (
     <div>
       <h1>People invited to my party</h1>
