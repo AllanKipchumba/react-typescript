@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { IState as Props } from "../App";
 
-export const AddToList = () => {
+interface IProps {
+  people: Props["people"];
+  setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
+}
+
+export const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -8,12 +14,34 @@ export const AddToList = () => {
     note: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   };
+
+  const handleClick = () => {
+    //name, age, image url fields should not be empty
+    input.name &&
+      input.age &&
+      input.img &&
+      setPeople([
+        ...people,
+        { name: input.name, age: +input.age, url: input.img, note: input.note },
+      ]);
+
+    //clear input fields
+    setInput({
+      name: "",
+      age: "",
+      img: "",
+      note: "",
+    });
+  };
+
   return (
     <div className="AddToList">
       <input
@@ -44,8 +72,12 @@ export const AddToList = () => {
         placeholder="Notes"
         className="AddToList-input"
         value={input.note}
+        name="note"
         onChange={handleChange}
       />
+      <button className="AddToList-btn" onClick={handleClick}>
+        Add to list
+      </button>
     </div>
   );
 };
