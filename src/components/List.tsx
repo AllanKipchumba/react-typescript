@@ -1,4 +1,5 @@
 import React from "react";
+//define props to be received by this child component
 import { IState as IProps } from "../App";
 
 export const List: React.FC<IProps> = ({ people }) => {

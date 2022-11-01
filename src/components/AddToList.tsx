@@ -30,6 +30,7 @@ export const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
       input.img &&
       setPeople([
         ...people,
+        //+ before age converts age-string type to number type
         { name: input.name, age: +input.age, url: input.img, note: input.note },
       ]);
 
